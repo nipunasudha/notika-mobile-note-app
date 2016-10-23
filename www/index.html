@@ -17,12 +17,9 @@
       }
     </script>-->
 
-	<link href="lib/ionic/css/ionic.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
 
-	<!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
-    -->
 
 	<!-- ionic/angularjs js -->
 	<script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -37,27 +34,14 @@
 <body ng-app="starter" ng-cloak>
 
 	<ion-pane>
-		<ion-header-bar class="bar-energized">
-			<h1 class="title">Ionic Blank Starter</h1>
+		<ion-nav-bar class="bar-energized">
+			<ion-nav-back-button></ion-nav-back-button>
 		</ion-header-bar>
-		<ion-content ng-controller="ListCtrl">
+		<ion-nav-view>
 
 
 
-
-			<ion-list>
-				<ion-item href="#/edit" ng-repeat="note in notes">
-					<h3>{{note.title}}</h3>
-					<p>{{note.description}}</p>
-
-				</ion-item>
-
-			</ion-list>
-
-
-
-
-		</ion-content>
+		</ion-nav-view>
 	</ion-pane>
 </body>
 
