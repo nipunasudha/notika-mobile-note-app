@@ -9817,3 +9817,9 @@ a.button {
 
 .ns-padding-top {
   padding-top: 15px; }
+
+.list-ico {
+  margin-left: 8px; }
+
+ion-item, ion-item .item-content {
+  background: white !important; }

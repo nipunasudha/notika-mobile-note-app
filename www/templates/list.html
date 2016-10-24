@@ -1,4 +1,4 @@
-<ion-view view-title="My Notes">
+<ion-view view-title="Notika">
 	<ion-content ng-controller="ListCtrl">
 		<div class="padding">
 
@@ -7,9 +7,10 @@
 </a>
 		</div>
 		<ion-list>
-			<ion-item href="#/edit/{{note.id}}" ng-repeat="note in notes">
+			<ion-item ng-click="go(note.id)"  ng-repeat="note in notes">
 				<h3>{{note.title}}</h3>
 				<p>{{note.description}}</p>
+				<ion-option-button ng-click="delete_note(note.id)"><i class="icon ion-trash-b list-ico"></i></ion-option-button>
 			</ion-item>
 		</ion-list>
 	</ion-content>

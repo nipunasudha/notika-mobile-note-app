@@ -1,6 +1,6 @@
 (function () {
 
-  app = angular.module('starter', ['ionic'])
+  app = angular.module('mynotes', ['ionic', 'mynotes.notestore'])
   app.config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('list', {
@@ -24,54 +24,23 @@
     $urlRouterProvider.otherwise('/list')
   })
 
-  var notes = [{
-    id: "1",
-    title: "First Note",
-    description: "This is the First note!"
-  }, {
 
-    id: "2",
-    title: "Second Note",
-    description: "This is the Second note!"
-  }, {
 
-    id: "3",
-    title: "Third Note",
-    description: "This is the Third note!"
-  },
-
-  ]
-  var getNote = function (id) {
-    for (i = 0; i < notes.length; i++) {
-
-      if (notes[i].id == id) {
-        return notes[i]
-      }
+  app.controller('ListCtrl', function ($scope, NoteStore) {
+    $scope.notes = NoteStore.list();
+    $scope.go = function (id) {
+      console.log(id)
+      window.location="#/edit/"+id
     }
-    return "No match"
-  }
-  var updateNote = function (edited) {
-    for (i = 0; i < notes.length; i++) {
-
-      if (notes[i].id == edited.id) {
-        notes[i] = edited
-        console.log("Saved!")
-      }
+    $scope.delete_note = function (id) {
+      console.log(id +"delete!")
+      NoteStore.delete_note(id)
     }
-    return "No match"
-  }
-  var addNote = function (note) {
-    notes.push(note)
-
-  }
-  app.controller('ListCtrl', function ($scope) {
-    $scope.notes = notes;
-
   })
 
   //------------------------------------------
 
-  app.controller('AddCtrl', function ($scope, $state) {
+  app.controller('AddCtrl', function ($scope, $state, NoteStore) {
 
     $scope.note = {
       id: new Date().getTime().toString(),
@@ -79,7 +48,7 @@
       description: ""
     }
     $scope.save_changes = function () {
-      addNote($scope.note)
+      NoteStore.add($scope.note)
       $state.go('list')
     }
   })
@@ -88,12 +57,12 @@
 
   //------------------------------------------
 
-  app.controller('EditCtrl', function ($scope, $state) {
+  app.controller('EditCtrl', function ($scope, $state, NoteStore) {
     $scope.noteId = $state.params.noteId;
 
-    $scope.note = angular.copy(getNote($scope.noteId))
+    $scope.note = angular.copy(NoteStore.get($scope.noteId))
     $scope.save_changes = function () {
-      updateNote($scope.note)
+      NoteStore.update($scope.note)
       $state.go('list')
     }
   })
