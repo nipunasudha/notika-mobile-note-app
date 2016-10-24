@@ -33,6 +33,7 @@
                         notes[i] = edited
                         console.log("Saved!")
                         persist()
+                        return
                     }
                 }
                 return "No match"
@@ -48,6 +49,7 @@
                         var index = notes.indexOf(notes[i]);
                         notes.splice(index, 1);
                         persist()
+                        return
                     }
                 }
                 return "No match"
