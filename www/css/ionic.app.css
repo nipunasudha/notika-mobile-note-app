@@ -9821,5 +9821,14 @@ a.button {
 .list-ico {
   margin-left: 8px; }
 
-ion-item, ion-item .item-content {
+ion-item,
+ion-item .item-content {
   background: white !important; }
+
+.popup-buttons .button {
+  background-color: #ffc900;
+  border: none; }
+
+.popup-buttons .button.activated {
+  background-color: #e6b500;
+  border: none; }

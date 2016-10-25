@@ -27,14 +27,23 @@
 
 
   app.controller('ListCtrl', function ($scope, NoteStore) {
+    $scope.reordering = false
     $scope.notes = NoteStore.list();
     $scope.go = function (id) {
       console.log(id)
-      window.location="#/edit/"+id
+      window.location = "#/edit/" + id
     }
     $scope.delete_note = function (id) {
-      console.log(id +"delete!")
+      console.log(id + "delete!")
       NoteStore.delete_note(id)
+    }
+    $scope.toggle_reordering = function () {
+      console.log("Reorder clicked")
+      $scope.reordering = !$scope.reordering
+    }
+    $scope.move = function (note, fromIndex, toIndex) {
+      console.log(note + "---" + fromIndex + "---" + toIndex)
+      NoteStore.move(note, fromIndex, toIndex)
     }
   })
 
@@ -48,9 +57,14 @@
       description: ""
     }
     $scope.save_changes = function () {
-      NoteStore.add($scope.note)
-      $state.go('list')
+      if (NoteStore.add($scope.note)) {
+        $state.go('list')
+      } else {
+        NoteStore.showAlert()
+      }
+
     }
+   
   })
 
   //------------------------------------------
@@ -58,13 +72,28 @@
   //------------------------------------------
 
   app.controller('EditCtrl', function ($scope, $state, NoteStore) {
+    showAlert = function () {
+      var alertPopup = $ionicPopup.alert({
+        title: 'Oops!',
+        template: 'Your note is incomplete.'
+      });
+
+      alertPopup.then(function (res) {
+        console.log('Thank you for not eating my delicious ice cream cone');
+      });
+    };
     $scope.noteId = $state.params.noteId;
 
     $scope.note = angular.copy(NoteStore.get($scope.noteId))
     $scope.save_changes = function () {
-      NoteStore.update($scope.note)
-      $state.go('list')
+      if (NoteStore.update($scope.note)) {
+        $state.go('list')
+      } else {
+        NoteStore.showAlert()
+      }
+
     }
+
   })
 
   //------------------------------------------

@@ -5,7 +5,7 @@
 
 
 
-    app.factory('NoteStore', function () {
+    app.factory('NoteStore', function ($ionicPopup) {
         var notes = angular.fromJson(window.localStorage['notes'] == undefined ? "[]" : window.localStorage['notes'])
 
         function persist() {
@@ -30,17 +30,28 @@
                 for (i = 0; i < notes.length; i++) {
 
                     if (notes[i].id == edited.id) {
-                        notes[i] = edited
-                        console.log("Saved!")
-                        persist()
-                        return
+                        if (edited.title != "" && edited.description != "") {
+                            notes[i] = edited
+                            console.log("Saved!")
+                            persist()
+                            return true
+                        }
+                        else {
+                            return false
+                        }
                     }
                 }
                 return "No match"
             },
             add: function (note) {
-                notes.push(note)
-                persist()
+                if (note.title != "" && note.description != "") {
+                    notes.push(note)
+                    persist()
+                    return true
+                } else {
+                    return false
+                }
+
             },
             delete_note: function (id) {
                 for (i = 0; i < notes.length; i++) {
@@ -53,6 +64,22 @@
                     }
                 }
                 return "No match"
+            },
+            move: function (note, fromIndex, toIndex) {
+                notes.splice(fromIndex, 1);
+                notes.splice(toIndex, 0, note);
+                persist()
+
+            },
+            showAlert: function () {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Oops!',
+                    template: 'Your note is incomplete.'
+                });
+
+                alertPopup.then(function (res) {
+                    console.log('Thank you for not eating my delicious ice cream cone');
+                });
             }
         }
 

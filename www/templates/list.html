@@ -1,17 +1,26 @@
-<ion-view view-title="Notika">
-	<ion-content ng-controller="ListCtrl">
-		<div class="padding">
+<ion-view view-title="Notika" ng-controller="ListCtrl">
+	<ion-content>
 
-			<a href="#/add" class="button button-energized">
-  Add Note
-</a>
-		</div>
-		<ion-list>
-			<ion-item ng-click="go(note.id)"  ng-repeat="note in notes">
+		<ion-list show-reorder="reordering" class="note-list">
+			<ion-item ng-click="go(note.id)" ng-repeat="note in notes track by note.id ">
 				<h3>{{note.title}}</h3>
 				<p>{{note.description}}</p>
+				<ion-reorder-button class="ion-drag" on-reorder="move(note,$fromIndex,$toIndex)"></ion-reorder-button>
 				<ion-option-button ng-click="delete_note(note.id)"><i class="icon ion-trash-b list-ico"></i></ion-option-button>
 			</ion-item>
 		</ion-list>
+
 	</ion-content>
+	<ion-footer-bar align-title="left" class="bar">
+		<div class="buttons ">
+			<a href="#/add" class="button button-energized">
+				<i class="ion-plus-round"></i> Add Note
+			</a>&nbsp;
+			<button ng-click="toggle_reordering()" class="button button-energized">
+			<i class="ion-shuffle"></i>
+  Reorder
+</button>
+		</div>
+
+	</ion-footer-bar>
 </ion-view>

@@ -14,25 +14,39 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
-
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
-
 // Include all of Ionic
-@import "www/lib/ionic/scss/ionic"; 
+@import "www/lib/ionic/scss/ionic";
+.edit-view {}
 
-.edit-view{
- 
-}
-.ns-padding-top{
-    padding-top: 15px;  
-}
-.list-ico{
-     margin-left: 8px;
-    
+.ns-padding-top {
+    padding-top: 15px;
 }
 
+.list-ico {
+    margin-left: 8px;
+}
 
-ion-item,ion-item .item-content{
+ion-item,
+ion-item .item-content {
     background: white!important;
+}
+
+.popup-buttons .button {
+    background-color: $energized;
+    border: none;
+}
+.popup-buttons .button.activated {
+    background-color: darken($color: $energized, $amount: 5%);
+    border: none;
 }
